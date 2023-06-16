@@ -26,8 +26,8 @@ Table products {
   description varchar(100)
   colors varchar(50)
   size enum('6','7','8','9','10')
-  brand_id int [foreign key: brands.brand_id]
-  category_id int [foreign key: categories.category_id]
+  brand_id int [ref: > brands.brand_id]
+  category_id int [ref: > categories.category_id]
   gender varchar(20)
   style varchar(50)
   stock_quantity int
@@ -35,30 +35,30 @@ Table products {
 
 Table wishlists {
   wishlist_id int [primary key]
-  user_id int [foreign key: users.user_id]
-  product_id int [foreign key: products.product_id]
+  user_id int [ref: > users.user_id]
+  product_id int [ref: > products.product_id]
   added_at datetime
 }
 
 Table orders {
   order_id int [primary key]
-  user_id int [foreign key: users.user_id]
+  user_id int [ref: > users.user_id]
   added_at datetime
   total_amount decimal(10,2)
 }
 
 Table order_items {
   item_id int [primary key]
-  order_id int [foreign key: orders.order_id]
-  product_id int [foreign key: products.product_id]
+  order_id int [ref: > orders.order_id]
+  product_id int [ref: > products.product_id]
   quantity int
   price decimal(10,2)
 }
 
 Table reviews {
   review_id int [primary key]
-  user_id int [foreign key: users.user_id]
-  product_id int [foreign key: products.product_id]
+  user_id int [ref: > users.user_id]
+  product_id int [ref: > products.product_id]
   rating int
   comment varchar(255)
   review_date datetime
@@ -74,13 +74,13 @@ Table customers {
 
 Table carts {
   cart_id int
-  customer_id int [foreign key: customers.customer_id]
+  customer_id int [ref: > customers.customer_id]
   quantity int
 }
 
 Table payments {
   payment_id int
-  customer_id int [foreign key: customers.customer_id]
+  customer_id int [ref: > customers.customer_id]
   payment_method varchar(50)
   card_number int(20)
   expiration_date varchar(10)
@@ -88,8 +88,8 @@ Table payments {
 
 Table shipping {
   shipping_id int
-  order_id int [foreign key: orders.order_id]
-  customer_id int [foreign key: customers.customer_id]
+  order_id int [ref: > orders.order_id]
+  customer_id int [ref: > customers.customer_id]
   shipping_address varchar(100)
   shipping_method varchar(50)
   tracking_number varchar(50)
